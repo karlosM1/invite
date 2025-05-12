@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useEffect } from "react";
+import { getDateTypeLabel, getDateTypeSpecificLabel } from "@/lib/date-options";
 
 interface ConfirmationStepProps {
   formData: DateInvitationData;
@@ -66,25 +67,11 @@ export default function ConfirmationStep({
     return () => clearInterval(interval);
   }, []);
 
-  // Helper function to get a readable label for the date type
-  const getDateTypeLabel = (value: string) => {
-    const types: Record<string, string> = {
-      coffee: "Coffee Date",
-      dinner: "Dinner Date",
-      movie: "Movie Date",
-      concert: "Concert/Show",
-      outdoor: "Outdoor Activity",
-    };
-    return types[value] || value;
-  };
-
   // Helper function to get a readable label for the after date activity
   const getActivityLabel = (value: string) => {
     const activities: Record<string, string> = {
       walk: "A nice walk",
       dessert: "Dessert somewhere",
-      drinks: "Drinks at a bar",
-      dancing: "Dancing",
       home: "Head home",
     };
     return activities[value] || value;
@@ -127,9 +114,19 @@ export default function ConfirmationStep({
             <div>
               <p className="font-medium">What:</p>
               <p>
-                {getDateTypeLabel(formData.dateType)} with{" "}
-                {formData.foodPreference} food
+                {getDateTypeLabel(formData.dateType)}
+                {formData.dateTypeSpecifics && (
+                  <>
+                    {" "}
+                    -{" "}
+                    {getDateTypeSpecificLabel(
+                      formData.dateType,
+                      formData.dateTypeSpecifics
+                    )}
+                  </>
+                )}
               </p>
+              <p>With {formData.foodPreference} food</p>
             </div>
           </div>
 

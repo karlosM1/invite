@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -22,6 +24,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { getDateTypeLabel, getDateTypeSpecificLabel } from "@/lib/date-options";
 
 interface ResponsesStepProps {
   formData: DateInvitationData;
@@ -33,18 +37,7 @@ export default function ResponsesStep({
   invitationId,
 }: ResponsesStepProps) {
   const [copied, setCopied] = useState(false);
-
-  // Helper function to get a readable label for the date type
-  const getDateTypeLabel = (value: string) => {
-    const types: Record<string, string> = {
-      coffee: "Coffee Date",
-      dinner: "Dinner Date",
-      movie: "Movie Date",
-      concert: "Concert/Show",
-      outdoor: "Outdoor Activity",
-    };
-    return types[value] || value;
-  };
+  const navigate = useNavigate();
 
   // Helper function to get a readable label for the after date activity
   const getActivityLabel = (value: string) => {
@@ -67,7 +60,14 @@ Date Invitation Response:
         ? format(formData.date, "EEEE, MMMM do, yyyy")
         : "Not selected"
     }
-- Date Type: ${getDateTypeLabel(formData.dateType)}
+- Date Type: ${getDateTypeLabel(formData.dateType)}${
+      formData.dateTypeSpecifics
+        ? ` - ${getDateTypeSpecificLabel(
+            formData.dateType,
+            formData.dateTypeSpecifics
+          )}`
+        : ""
+    }
 - Food Preference: ${formData.foodPreference}
 - After Date Activity: ${getActivityLabel(formData.afterDateActivity)}
 ${
@@ -120,7 +120,14 @@ Date Invitation Response:
         ? format(formData.date, "EEEE, MMMM do, yyyy")
         : "Not selected"
     }
-- Date Type: ${getDateTypeLabel(formData.dateType)}
+- Date Type: ${getDateTypeLabel(formData.dateType)}${
+      formData.dateTypeSpecifics
+        ? ` - ${getDateTypeSpecificLabel(
+            formData.dateType,
+            formData.dateTypeSpecifics
+          )}`
+        : ""
+    }
 - Food Preference: ${formData.foodPreference}
 - After Date Activity: ${getActivityLabel(formData.afterDateActivity)}
 ${
@@ -154,7 +161,14 @@ Date Invitation Response:
         ? format(formData.date, "EEEE, MMMM do, yyyy")
         : "Not selected"
     }
-- Date Type: ${getDateTypeLabel(formData.dateType)}
+- Date Type: ${getDateTypeLabel(formData.dateType)}${
+      formData.dateTypeSpecifics
+        ? ` - ${getDateTypeSpecificLabel(
+            formData.dateType,
+            formData.dateTypeSpecifics
+          )}`
+        : ""
+    }
 - Food Preference: ${formData.foodPreference}
 - After Date Activity: ${getActivityLabel(formData.afterDateActivity)}
 ${
@@ -183,6 +197,10 @@ ${
       // Fallback for browsers that don't support the Web Share API
       copyToClipboard();
     }
+  };
+
+  const goToResponses = () => {
+    navigate("/responses");
   };
 
   return (
@@ -222,9 +240,19 @@ ${
             <div>
               <p className="font-medium">What:</p>
               <p>
-                {getDateTypeLabel(formData.dateType)} with{" "}
-                {formData.foodPreference} food
+                {getDateTypeLabel(formData.dateType)}
+                {formData.dateTypeSpecifics && (
+                  <>
+                    {" "}
+                    -{" "}
+                    {getDateTypeSpecificLabel(
+                      formData.dateType,
+                      formData.dateTypeSpecifics
+                    )}
+                  </>
+                )}
               </p>
+              <p>With {formData.foodPreference} food</p>
             </div>
           </div>
 
@@ -298,12 +326,14 @@ ${
             Share
           </Button>
         </div>
-        <a href="#/responses" className="mt-4 flex justify-center">
-          <Button variant="link" className="text-pink-600">
-            <ExternalLink className="mr-2 h-4 w-4" />
-            View All Saved Invitations
-          </Button>
-        </a>
+        <Button
+          onClick={goToResponses}
+          variant="link"
+          className="text-pink-600 mt-4"
+        >
+          <ExternalLink className="mr-2 h-4 w-4" />
+          View All Saved Invitations
+        </Button>
       </CardFooter>
     </Card>
   );

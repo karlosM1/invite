@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Coffee, Utensils, Film, Music, Palmtree } from "lucide-react";
+import { dateTypeOptions } from "@/lib/date-options";
 
 interface DateTypeStepProps {
   onNext: (dateType: string) => void;
@@ -18,14 +18,6 @@ interface DateTypeStepProps {
 
 export default function DateTypeStep({ onNext }: DateTypeStepProps) {
   const [selectedType, setSelectedType] = useState<string>("");
-
-  const dateTypes = [
-    { value: "coffee", label: "Coffee Date", icon: Coffee },
-    { value: "dinner", label: "Dinner Date", icon: Utensils },
-    { value: "movie", label: "Movie Date", icon: Film },
-    { value: "concert", label: "Concert/Show", icon: Music },
-    { value: "outdoor", label: "Outdoor Activity", icon: Palmtree },
-  ];
 
   const handleNext = () => {
     if (selectedType) {
@@ -49,7 +41,7 @@ export default function DateTypeStep({ onNext }: DateTypeStepProps) {
           onValueChange={setSelectedType}
           className="space-y-3"
         >
-          {dateTypes.map((type) => {
+          {dateTypeOptions.map((type) => {
             const Icon = type.icon;
             return (
               <div key={type.value} className="flex items-center">
@@ -62,7 +54,7 @@ export default function DateTypeStep({ onNext }: DateTypeStepProps) {
                   htmlFor={type.value}
                   className="flex items-center space-x-3 w-full p-4 rounded-lg border-2 border-muted peer-data-[state=checked]:border-pink-500 hover:bg-muted/50 transition-all cursor-pointer"
                 >
-                  <Icon className="h-5 w-5 text-pink-600" />
+                  {Icon && <Icon className="h-5 w-5 text-pink-600" />}
                   <span>{type.label}</span>
                 </Label>
               </div>

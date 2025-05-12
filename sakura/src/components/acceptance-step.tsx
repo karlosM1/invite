@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import catcry from "@/assets/gif/catto.gif";
 
 interface AcceptanceStepProps {
   onNext: () => void;
@@ -52,11 +53,11 @@ export default function AcceptanceStep({ onNext }: AcceptanceStepProps) {
         <CardTitle className="text-3xl font-bold text-pink-600">
           Will you go on a date with me?
         </CardTitle>
-        <CardDescription className="text-lg">
-          I promise it'll be fun!
-        </CardDescription>
+        <div>
+          <img src={catcry} alt="My GIF" />
+        </div>
       </CardHeader>
-      <CardContent className="text-center space-y-8 py-8">
+      <CardContent className="text-center space-y-8 ">
         <p className="text-xl">Would you like to go on a date with me?</p>
       </CardContent>
       <CardFooter className="flex justify-center gap-4 pb-8">

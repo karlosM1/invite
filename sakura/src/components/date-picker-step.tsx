@@ -17,6 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import happycat from "@/assets/gif/happycat.gif";
 
 interface DatePickerStepProps {
   onNext: (date: Date) => void;
@@ -48,8 +49,11 @@ export default function DatePickerStep({ onNext }: DatePickerStepProps) {
         <CardDescription className="text-lg">
           When would you be available?
         </CardDescription>
+        <div>
+          <img src={happycat} alt="My GIF" />
+        </div>
       </CardHeader>
-      <CardContent className="text-center space-y-6 py-6">
+      <CardContent className="text-center space-y-6">
         <div className="flex justify-center">
           <Popover>
             <PopoverTrigger asChild>

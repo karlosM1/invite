@@ -3,6 +3,7 @@ import InvitationStep from "./invitation-step";
 import AcceptanceStep from "./acceptance-step";
 import DatePickerStep from "./date-picker-step";
 import DateTypeStep from "./date-type-step";
+import DateTypeSpecificsStep from "./date-type-specifics-step";
 import FoodPreferenceStep from "./food-preference-step";
 import AfterDateStep from "./after-date-step";
 import ConfirmationStep from "./confirmation-step";
@@ -15,6 +16,7 @@ export default function DateInvitation() {
     accepted: false,
     date: undefined,
     dateType: "",
+    dateTypeSpecifics: "",
     foodPreference: "",
     afterDateActivity: "",
     suggestions: "",
@@ -69,7 +71,15 @@ export default function DateInvitation() {
     <DateTypeStep
       key="date-type"
       onNext={(dateType) => {
-        updateFormData({ dateType });
+        updateFormData({ dateType, dateTypeSpecifics: "" }); // Reset specifics when date type changes
+        nextStep();
+      }}
+    />,
+    <DateTypeSpecificsStep
+      key="date-type-specifics"
+      dateType={formData.dateType}
+      onNext={(dateTypeSpecifics) => {
+        updateFormData({ dateTypeSpecifics });
         nextStep();
       }}
     />,

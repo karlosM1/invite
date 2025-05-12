@@ -23,8 +23,6 @@ export default function AfterDateStep({ onNext }: AfterDateStepProps) {
   const activityOptions = [
     { value: "walk", label: "A nice walk" },
     { value: "dessert", label: "Dessert somewhere" },
-    { value: "drinks", label: "Drinks at a bar" },
-    { value: "dancing", label: "Dancing" },
     { value: "home", label: "Head home" },
   ];
 
