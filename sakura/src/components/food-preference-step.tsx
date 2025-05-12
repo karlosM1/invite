@@ -29,7 +29,6 @@ export default function FoodPreferenceStep({
     { value: "american", label: "American" },
     { value: "thai", label: "Thai" },
     { value: "vegetarian", label: "Vegetarian" },
-    { value: "surprise", label: "Surprise me!" },
   ];
 
   const handleNext = () => {
